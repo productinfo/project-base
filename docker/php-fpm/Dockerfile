@@ -115,3 +115,17 @@ RUN composer install --optimize-autoloader --no-interaction --no-progress --dev
 RUN php phing composer-dev npm dirs-create test-dirs-create assets standards tests-static tests-acceptance-build
 
 RUN ./bin/console shopsys:environment:change prod
+
+########################################################################################################################
+
+FROM base as google_cloud
+
+COPY --chown=www-data:www-data / /var/www/html
+
+RUN composer install --optimize-autoloader --no-interaction --no-progress --no-dev
+
+ARG google_cloud_storage_bucket_name
+
+ENV GOOGLE_CLOUD_STORAGE_BUCKET_NAME=$google_cloud_storage_bucket_name
+
+RUN php phing composer npm assets
