@@ -18,7 +18,7 @@ docker image pull ${DOCKER_USERNAME}/php-fpm:${DOCKER_IMAGE_TAG} || (
     echo "Image not found (see warning above), building it instead..." &&
     docker image build \
         --tag ${DOCKER_USERNAME}/php-fpm:${DOCKER_IMAGE_TAG} \
-        --target google_cloud \
+        --target production \
         -f docker/php-fpm/Dockerfile \
         . &&
     docker image push ${DOCKER_USERNAME}/php-fpm:${DOCKER_IMAGE_TAG}
